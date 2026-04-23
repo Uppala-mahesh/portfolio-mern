@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../api';
 import { FaMapMarkerAlt, FaEnvelope, FaGithub, FaLinkedin, FaGraduationCap } from 'react-icons/fa';
 import Loader from '../components/Loader';
 
@@ -11,7 +11,7 @@ const About = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const { data } = await axios.get('/api/profile');
+        const { data } = await api.get('/api/profile');
         setProfile(data);
       } catch (err) {
         console.error('Failed to fetch profile:', err);

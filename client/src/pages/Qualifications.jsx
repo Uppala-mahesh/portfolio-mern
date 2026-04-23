@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../api';
 import QualificationTable from '../components/QualificationTable';
 import Loader from '../components/Loader';
 
@@ -11,7 +11,7 @@ const Qualifications = () => {
   useEffect(() => {
     const fetchQualifications = async () => {
       try {
-        const { data } = await axios.get('/api/qualifications');
+        const { data } = await api.get('/api/qualifications');
         setQualifications(data);
       } catch (err) {
         console.error('Failed to fetch qualifications:', err);

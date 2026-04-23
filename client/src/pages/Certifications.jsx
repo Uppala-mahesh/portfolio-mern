@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../api';
 import CertificationCard from '../components/CertificationCard';
 import Modal from '../components/Modal';
 import Loader from '../components/Loader';
@@ -13,7 +13,7 @@ const Certifications = () => {
   useEffect(() => {
     const fetchCertifications = async () => {
       try {
-        const { data } = await axios.get('/api/certifications');
+        const { data } = await api.get('/api/certifications');
         setCertifications(data);
       } catch (err) {
         console.error('Failed to fetch certifications:', err);

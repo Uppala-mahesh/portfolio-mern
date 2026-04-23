@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../api';
 import HeroSection from '../components/HeroSection';
 import ProjectCard from '../components/ProjectCard';
 import Loader from '../components/Loader';
@@ -12,7 +12,7 @@ const Home = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const { data } = await axios.get('/api/projects');
+        const { data } = await api.get('/api/projects');
         setProjects(data.filter((p) => p.featured));
       } catch (err) {
         console.error('Failed to fetch projects:', err);

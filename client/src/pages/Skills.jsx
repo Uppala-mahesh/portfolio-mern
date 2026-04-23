@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../api';
 import SkillBar from '../components/SkillBar';
 import Loader from '../components/Loader';
 import {
@@ -41,7 +41,7 @@ const Skills = () => {
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const { data } = await axios.get('/api/skills');
+        const { data } = await api.get('/api/skills');
         setSkills(data);
       } catch (err) {
         console.error('Failed to fetch skills:', err);

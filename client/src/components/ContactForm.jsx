@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { motion } from 'framer-motion';
 
 const ContactForm = () => {
@@ -39,7 +39,7 @@ const ContactForm = () => {
 
     setLoading(true);
     try {
-      await axios.post('/api/contact', formData);
+      await api.post('/api/contact', formData);
       setStatus({
         type: 'success',
         message: "Message sent successfully! I'll get back to you soon."
