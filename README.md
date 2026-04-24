@@ -119,6 +119,21 @@ npm run dev
 - Email regex validation
 - Mobile must be exactly 10 digits
 
+## 🌐 Deployment
+
+### Frontend — Vercel
+1. Import the repository on [vercel.com](https://vercel.com).
+2. Set **Root Directory** to `client`.
+3. Vite is auto-detected; no build command override needed.
+4. Add the environment variable `VITE_API_URL` pointing to your Render backend URL.
+
+### Backend — Render
+1. Create a new **Web Service** on [render.com](https://render.com).
+2. Set **Root Directory** to `server`.
+3. **Build command**: `npm install`
+4. **Start command**: `node server.js`
+5. Add environment variables: `MONGODB_URI`, `PORT` (optional, defaults to 5000), `CLIENT_URL` (your Vercel frontend URL).
+
 ## 👤 Author
 
 **Uppala Mahesh**  
