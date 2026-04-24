@@ -1,4 +1,4 @@
-const Qualification = require('../models/Qualification');
+const Qualification = require("../models/Qualification");
 
 /* GET /api/qualifications — fetch all qualifications */
 exports.getQualifications = async (_req, res) => {

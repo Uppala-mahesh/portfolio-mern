@@ -1,50 +1,76 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import api from '../api';
-import SkillBar from '../components/SkillBar';
-import Loader from '../components/Loader';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import api from "../api";
+import SkillCard from "../components/SkillCard";
+import Loader from "../components/Loader";
 import {
-  SiJavascript, SiReact, SiHtml5, SiNodedotjs, SiExpress,
-  SiMongodb, SiPython, SiLinux, SiGit
-} from 'react-icons/si';
+  SiJavascript,
+  SiReact,
+  SiHtml5,
+  SiNodedotjs,
+  SiExpress,
+  SiMongodb,
+  SiPython,
+  SiLinux,
+  SiGit,
+} from "react-icons/si";
 import {
-  TbApi, TbBinaryTree, TbDatabase, TbNetwork, TbPuzzle
-} from 'react-icons/tb';
-import { MdDevices } from 'react-icons/md';
-import { FaCubes } from 'react-icons/fa';
+  TbApi,
+  TbBinaryTree,
+  TbDatabase,
+  TbNetwork,
+  TbPuzzle,
+} from "react-icons/tb";
+import { MdDevices } from "react-icons/md";
+import { FaCubes, FaAws } from "react-icons/fa";
 
-/* Map icon strings from DB to actual React components */
+/* Map icon strings to actual React components and brand hover colors */
 const iconMap = {
-  SiJavascript:  <SiJavascript />,
-  SiReact:       <SiReact />,
-  SiHtml5:       <SiHtml5 />,
-  MdDevices:     <MdDevices />,
-  SiNodedotjs:   <SiNodedotjs />,
-  SiExpress:     <SiExpress />,
-  SiMongodb:     <SiMongodb />,
-  TbApi:         <TbApi />,
-  SiPython:      <SiPython />,
-  TbBinaryTree:  <TbBinaryTree />,
-  TbBoxModel:    <FaCubes />,
-  TbDatabase:    <TbDatabase />,
-  SiLinux:       <SiLinux />,
-  TbNetwork:     <TbNetwork />,
-  SiGit:         <SiGit />,
-  TbPuzzle:      <TbPuzzle />
+  SiJavascript: {
+    component: <SiJavascript />,
+    color: "group-hover:text-yellow-400",
+  },
+  SiReact: { component: <SiReact />, color: "group-hover:text-cyan-400" },
+  SiHtml5: { component: <SiHtml5 />, color: "group-hover:text-orange-500" },
+  MdDevices: { component: <MdDevices />, color: "group-hover:text-slate-300" },
+  SiNodedotjs: {
+    component: <SiNodedotjs />,
+    color: "group-hover:text-green-500",
+  },
+  SiExpress: { component: <SiExpress />, color: "group-hover:text-slate-200" },
+  SiMongodb: { component: <SiMongodb />, color: "group-hover:text-green-600" },
+  TbApi: { component: <TbApi />, color: "group-hover:text-accentBlue" },
+  SiPython: { component: <SiPython />, color: "group-hover:text-blue-400" },
+  TbBinaryTree: {
+    component: <TbBinaryTree />,
+    color: "group-hover:text-accentPurple",
+  },
+  TbBoxModel: { component: <FaCubes />, color: "group-hover:text-accentBlue" },
+  TbDatabase: {
+    component: <TbDatabase />,
+    color: "group-hover:text-slate-400",
+  },
+  SiLinux: { component: <SiLinux />, color: "group-hover:text-yellow-500" },
+  TbNetwork: {
+    component: <TbNetwork />,
+    color: "group-hover:text-accentPurple",
+  },
+  SiGit: { component: <SiGit />, color: "group-hover:text-orange-600" },
+  TbPuzzle: { component: <TbPuzzle />, color: "group-hover:text-accentBlue" },
+  FaAws: { component: <FaAws />, color: "group-hover:text-orange-400" },
 };
 
 const Skills = () => {
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState('All');
 
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const { data } = await api.get('/api/skills');
+        const { data } = await api.get("/api/skills");
         setSkills(data);
       } catch (err) {
-        console.error('Failed to fetch skills:', err);
+        console.error("Failed to fetch skills:", err);
       } finally {
         setLoading(false);
       }
@@ -52,78 +78,85 @@ const Skills = () => {
     fetchSkills();
   }, []);
 
-  const categories = ['All', ...new Set(skills.map((s) => s.category))];
-  const filtered =
-    activeCategory === 'All'
-      ? skills
-      : skills.filter((s) => s.category === activeCategory);
+  // Group skills by category for Bento Layout
+  const categories = skills.reduce((acc, skill) => {
+    if (!acc[skill.category]) acc[skill.category] = [];
+    acc[skill.category].push(skill);
+    return acc;
+  }, {});
 
   return (
     <motion.div
-      className="page page--skills"
+      className="min-h-[calc(100vh-80px)] py-12"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4 }}
     >
-      <div className="container">
-        <motion.div
-          className="section__header"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <h1 className="section__title">Skills</h1>
-          <p className="section__subtitle">Technologies & tools I work with</p>
-        </motion.div>
+      <motion.div
+        className="mb-12 text-center"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          Tech <span className="text-gradient-purple">Stack</span>
+        </h1>
+        <p className="text-slate-400">
+          The tools and technologies I use to build scalable applications
+        </p>
+      </motion.div>
 
-        {/* Category Filter */}
-        <motion.div
-          className="skills__categories" id="skill-categories"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              className={`skills__category-btn ${
-                activeCategory === cat ? 'skills__category-btn--active' : ''
-              }`}
-              onClick={() => setActiveCategory(cat)}
-            >
-              {cat}
-            </button>
-          ))}
-        </motion.div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {Object.keys(categories).map((category, index) => {
+            // Highlight MERN/Backend by giving it full width sometimes or specific styling
+            const isFullWidth = index % 3 === 0;
 
-        {loading ? (
-          <Loader />
-        ) : (
-          <motion.div
-            className="skills__grid"
-            key={activeCategory}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {filtered.map((skill, index) => (
+            return (
               <motion.div
-                key={skill._id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
+                key={category}
+                className={`glass-card p-8 ${isFullWidth ? "lg:col-span-2" : ""} bg-slate-900/30 border border-white/10`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <SkillBar
-                  name={skill.name}
-                  level={skill.level}
-                  icon={iconMap[skill.icon]}
-                />
+                <div className="flex items-center gap-3 mb-6 border-b border-white/10 pb-4">
+                  <div className="w-2 h-8 bg-accentBlue rounded-full"></div>
+                  <h2 className="text-2xl font-bold text-white tracking-wide">
+                    {category}
+                  </h2>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                  {categories[category].map((skill, i) => {
+                    const iconData = iconMap[skill.icon] || {
+                      component: <FaCubes />,
+                      color: "group-hover:text-accentBlue",
+                    };
+                    return (
+                      <motion.div
+                        key={skill._id}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: i * 0.05 + 0.2 }}
+                      >
+                        <SkillCard
+                          name={skill.name}
+                          icon={iconData.component}
+                          hoverColorClass={iconData.color}
+                        />
+                      </motion.div>
+                    );
+                  })}
+                </div>
               </motion.div>
-            ))}
-          </motion.div>
-        )}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </motion.div>
   );
 };

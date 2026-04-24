@@ -1,6 +1,6 @@
-const router = require('express').Router();
-const { getCertifications } = require('../controllers/certificationController');
+const router = require("express").Router();
+const { getCertifications } = require("../controllers/certificationController");
 
-router.get('/', getCertifications);
+router.get("/", getCertifications);
 
 module.exports = router;

@@ -10,21 +10,21 @@ const validateContact = (req, res, next) => {
   const errors = [];
 
   /* ── Required fields ── */
-  if (!name    || name.trim()    === '') errors.push('Name is required');
-  if (!message || message.trim() === '') errors.push('Message is required');
+  if (!name || name.trim() === "") errors.push("Name is required");
+  if (!message || message.trim() === "") errors.push("Message is required");
 
   /* ── Email validation ── */
-  if (!email || email.trim() === '') {
-    errors.push('Email is required');
+  if (!email || email.trim() === "") {
+    errors.push("Email is required");
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    errors.push('Please enter a valid email address');
+    errors.push("Please enter a valid email address");
   }
 
   /* ── Mobile validation (exactly 10 digits) ── */
-  if (!mobile || mobile.trim() === '') {
-    errors.push('Mobile number is required');
+  if (!mobile || mobile.trim() === "") {
+    errors.push("Mobile number is required");
   } else if (!/^\d{10}$/.test(mobile.trim())) {
-    errors.push('Mobile number must be exactly 10 digits');
+    errors.push("Mobile number must be exactly 10 digits");
   }
 
   if (errors.length > 0) {
