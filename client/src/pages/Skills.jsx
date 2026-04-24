@@ -69,15 +69,21 @@ const Skills = () => {
       <div className="container">
         <motion.div
           className="section__header"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           <h1 className="section__title">Skills</h1>
           <p className="section__subtitle">Technologies & tools I work with</p>
         </motion.div>
 
         {/* Category Filter */}
-        <div className="skills__categories" id="skill-categories">
+        <motion.div
+          className="skills__categories" id="skill-categories"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           {categories.map((cat) => (
             <button
               key={cat}
@@ -89,7 +95,7 @@ const Skills = () => {
               {cat}
             </button>
           ))}
-        </div>
+        </motion.div>
 
         {loading ? (
           <Loader />
@@ -97,17 +103,23 @@ const Skills = () => {
           <motion.div
             className="skills__grid"
             key={activeCategory}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
-            {filtered.map((skill) => (
-              <SkillBar
+            {filtered.map((skill, index) => (
+              <motion.div
                 key={skill._id}
-                name={skill.name}
-                level={skill.level}
-                icon={iconMap[skill.icon]}
-              />
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+              >
+                <SkillBar
+                  name={skill.name}
+                  level={skill.level}
+                  icon={iconMap[skill.icon]}
+                />
+              </motion.div>
             ))}
           </motion.div>
         )}

@@ -27,10 +27,10 @@ const QualificationTable = ({ qualifications }) => {
           {qualifications.map((q, i) => (
             <motion.tr
               key={i}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, x: -30, filter: 'blur(4px)' }}
+              whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.15 }}
+              transition={{ duration: 0.5, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
             >
               <td>{q.degree}</td>
               <td>{q.institution}</td>

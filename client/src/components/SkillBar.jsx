@@ -16,7 +16,7 @@ const SkillBar = ({ name, level, icon }) => {
           initial={{ width: 0 }}
           whileInView={{ width: `${level}%` }}
           viewport={{ once: true }}
-          transition={{ duration: 1.2, ease: 'easeOut' }}
+          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
         />
       </div>
     </div>

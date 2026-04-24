@@ -40,13 +40,14 @@ const About = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.5 }}
     >
       <div className="container">
         <motion.div
           className="section__header"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           <h1 className="section__title">About Me</h1>
           <p className="section__subtitle">Get to know who I am</p>
@@ -56,9 +57,9 @@ const About = () => {
           {/* Avatar */}
           <motion.div
             className="about__image-wrapper"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
           >
             <div className="about__image">
               <div className="about__avatar">
@@ -70,9 +71,9 @@ const About = () => {
           {/* Info Card */}
           <motion.div
             className="about__info"
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
+            initial={{ opacity: 0, x: 40, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <h2 className="about__name">{profile.name}</h2>
             <p className="about__title">{profile.title}</p>

@@ -60,10 +60,10 @@ const ContactForm = () => {
       className="contact-form"
       id="contact-form"
       onSubmit={handleSubmit}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="contact-form__group">
         <label htmlFor="contact-name">Full Name</label>
@@ -114,9 +114,13 @@ const ContactForm = () => {
       </div>
 
       {status.message && (
-        <div className={`contact-form__status contact-form__status--${status.type}`}>
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className={`contact-form__status contact-form__status--${status.type}`}
+        >
           {status.message}
-        </div>
+        </motion.div>
       )}
 
       <button
@@ -128,7 +132,7 @@ const ContactForm = () => {
         {loading ? (
           <span className="contact-form__loading">
             <span className="contact-form__spinner" />
-            Sending...
+            Sending Signal...
           </span>
         ) : (
           'Send Message'

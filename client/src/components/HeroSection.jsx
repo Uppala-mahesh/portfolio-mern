@@ -40,35 +40,64 @@ const HeroSection = () => {
       <ParticleBackground />
       <div className="hero__content">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="hero__greeting">Hello, I&apos;m</p>
-          <h1 className="hero__name">Uppala Mahesh</h1>
-          <div className="hero__role-wrapper">
+          <motion.p
+            className="hero__greeting"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+          >
+            Hello, I&apos;m
+          </motion.p>
+          <motion.h1
+            className="hero__name"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          >
+            Uppala Mahesh
+          </motion.h1>
+          <motion.div
+            className="hero__role-wrapper"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8, duration: 0.6 }}
+          >
             <span className="hero__role">{text}</span>
             <span className="hero__cursor">|</span>
-          </div>
-          <p className="hero__tagline">
+          </motion.div>
+          <motion.p
+            className="hero__tagline"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.6 }}
+          >
             Designing scalable systems, building intelligent applications, and
             exploring the intersection of software, data, and innovation.
-          </p>
-          <div className="hero__cta">
+          </motion.p>
+          <motion.div
+            className="hero__cta"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
+          >
             <Link to="/skills" className="hero__btn hero__btn--primary">
               View My Work
             </Link>
             <Link to="/contact" className="hero__btn hero__btn--secondary">
               Get In Touch
             </Link>
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.div
           className="hero__scroll"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
+          transition={{ delay: 2, duration: 1 }}
         >
           <span>Scroll Down</span>
           <HiArrowDown className="hero__scroll-icon" />

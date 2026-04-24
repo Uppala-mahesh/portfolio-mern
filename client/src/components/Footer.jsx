@@ -1,5 +1,6 @@
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { HiArrowUp } from 'react-icons/hi';
+import { motion } from 'framer-motion';
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -9,14 +10,26 @@ const Footer = () => {
   return (
     <footer className="footer" id="footer">
       <div className="footer__container">
-        <div className="footer__brand">
+        <motion.div
+          className="footer__brand"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h3 className="footer__logo">
             UM<span>.</span>
           </h3>
           <p className="footer__tagline">Building the future, one line at a time.</p>
-        </div>
+        </motion.div>
 
-        <div className="footer__social">
+        <motion.div
+          className="footer__social"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
           <a
             href="https://github.com/Uppala-mahesh"
             target="_blank"
@@ -42,7 +55,7 @@ const Footer = () => {
           >
             <FaEnvelope />
           </a>
-        </div>
+        </motion.div>
 
         <div className="footer__bottom">
           <p>&copy; {new Date().getFullYear()} Uppala Mahesh. All rights reserved.</p>

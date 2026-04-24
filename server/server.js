@@ -8,8 +8,22 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 /* ───────────── Middleware ───────────── */
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173',
+  process.env.CLIENT_URL
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || '*',
+  origin: function (origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1 || !process.env.CLIENT_URL) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Allow all in case CLIENT_URL not set
+    }
+  },
   methods: ['GET', 'POST'],
   credentials: true
 }));

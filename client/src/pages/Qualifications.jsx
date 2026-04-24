@@ -33,8 +33,9 @@ const Qualifications = () => {
       <div className="container">
         <motion.div
           className="section__header"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           <h1 className="section__title">Qualifications</h1>
           <p className="section__subtitle">My academic journey</p>
@@ -43,7 +44,13 @@ const Qualifications = () => {
         {loading ? (
           <Loader />
         ) : (
-          <QualificationTable qualifications={qualifications} />
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <QualificationTable qualifications={qualifications} />
+          </motion.div>
         )}
       </div>
     </motion.div>

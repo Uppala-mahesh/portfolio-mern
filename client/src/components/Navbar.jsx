@@ -16,7 +16,13 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="navbar" id="main-nav">
+    <motion.nav
+      className="navbar"
+      id="main-nav"
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="navbar__container">
         {/* Logo */}
         <NavLink to="/" className="navbar__logo" onClick={() => setIsOpen(false)}>
@@ -26,7 +32,7 @@ const Navbar = () => {
 
         {/* Desktop Links */}
         <div className="navbar__links">
-          {navLinks.map((link) => (
+          {navLinks.map((link, i) => (
             <NavLink
               key={link.path}
               to={link.path}
@@ -61,23 +67,29 @@ const Navbar = () => {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
-            {navLinks.map((link) => (
-              <NavLink
+            {navLinks.map((link, i) => (
+              <motion.div
                 key={link.path}
-                to={link.path}
-                end={link.path === '/'}
-                className={({ isActive }) =>
-                  `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`
-                }
-                onClick={() => setIsOpen(false)}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.05 }}
               >
-                {link.label}
-              </NavLink>
+                <NavLink
+                  to={link.path}
+                  end={link.path === '/'}
+                  className={({ isActive }) =>
+                    `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`
+                  }
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.label}
+                </NavLink>
+              </motion.div>
             ))}
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   );
 };
 
